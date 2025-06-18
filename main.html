@@ -1,32 +1,57 @@
+//your JS code here. If required.
 <!DOCTYPE html>
-
 <html>
-
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <title>Second Highest Finder</title>
 </head>
+<body>
+  <h2>Find Second Highest Number</h2>
 
-<body>	
-	<script>
-		function secondHighest(arr) {
-			//Write your code here
-			
-		}
+  <label for="count">Enter number of elements:</label>
+  <input type="number" id="count" />
+  <br><br>
 
-		function Main() {
-			var n = prompt("Enter the number of elements");
-			var arr = [];
-			for (var i = 0; i < n; i++) {
-				arr[i] = prompt("Enter element " + (i+1));
-			}
-			alert(secondHighest(arr));
-		}
-		Main();
-	</script>
+  <label for="elements">Enter elements (space-separated):</label>
+  <input type="text" id="elements" />
+  <br><br>
 
-    <script type="text/javascript" src="./script.js">
-</script>
+  <button onclick="handleCheck()">Find Second Highest</button>
 
+  <p id="output"></p>
+
+  <script>
+    function secondHighest(arr) {
+      if (arr.length < 2) return -Infinity;
+
+      let max = -Infinity;
+      let second = -Infinity;
+
+      for (let num of arr) {
+        if (num > max) {
+          second = max;
+          max = num;
+        } else if (num > second && num < max) {
+          second = num;
+        }
+      }
+
+      return second === -Infinity ? -Infinity : second;
+    }
+
+    function handleCheck() {
+      const count = parseInt(document.getElementById('count').value);
+      const input = document.getElementById('elements').value.trim();
+
+      const arr = input.split(' ').map(Number);
+
+      if (arr.length !== count) {
+        document.getElementById('output').innerText = "Please enter exactly " + count + " numbers.";
+        return;
+      }
+
+      const result = secondHighest(arr);
+      document.getElementById('output').innerText = "Second highest number: " + result;
+    }
+  </script>
 </body>
-
 </html>
